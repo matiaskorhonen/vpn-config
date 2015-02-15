@@ -64,7 +64,7 @@ You'll also need a working Ruby environment and the [Bundler](http://bundler.io/
 
   It is also possible to install the profile with the Apple Configurator app, but I've never tried it.
 
-9. On **OS X** simple double click the profile file to install it.
+9. On **OS X** simply double click the profile file to install it.
 
 
 ## Copyright & License
