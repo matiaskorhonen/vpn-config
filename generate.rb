@@ -14,11 +14,15 @@ server_yaml = "pia-servers.yml"
 all_vpns = YAML.load_file("pia-servers.yml")
 enabled_vpns = all_vpns.select {|vpn| vpn["enabled"]}
 
-# Get the user's VPN username
+# Get the VPN username
 print "VPN username (e.g. 'x1234567'): "
 auth_name = gets.chomp("\n")
 
-output_path = "generated.mobileconfig"
+# Get the VPN password
+print "VPN password: "
+auth_pass = gets.chomp("\n")
+
+output_path = "pia.mobileconfig"
 
 identifier = "fi.matiaskorhonen.pia"
 
@@ -56,6 +60,7 @@ config = {
       },
       "PPP" => {
         "AuthName" => auth_name,
+        "AuthPassword" => auth_pass,
         "TokenCard" => false,
         "CommRemoteAddress" => vpn["host"],
       },

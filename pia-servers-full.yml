@@ -5,7 +5,7 @@
   uuid: 40D6AAB4-E1C8-4801-9E91-D39FA6C7BFC9
 - name: US East
   host: us-east.privateinternetaccess.com
-  enabled: true
+  enabled: false
   uuid: D258C16E-749E-4CE4-91FB-9285F997B73E
 - name: US West
   host: us-west.privateinternetaccess.com
@@ -33,7 +33,7 @@
   uuid: 7F02BFD6-5E47-42C8-9ABB-46783A0328B7
 - name: UK London
   host: uk-london.privateinternetaccess.com
-  enabled: true
+  enabled: false
   uuid: A53524A7-8B57-4C2A-962A-85C143923EDF
 - name: UK Southhampton
   host: uk-southampton.privateinternetaccess.com
@@ -49,7 +49,7 @@
   uuid: 3DC2A875-81B9-4B16-97F6-A046D17AB22E
 - name: Sweden
   host: sweden.privateinternetaccess.com
-  enabled: true
+  enabled: false
   uuid: FC1DE0BE-B132-4A05-B493-AA5EAC048EC1
 - name: France
   host: france.privateinternetaccess.com
