@@ -2,6 +2,8 @@
 
 Generate iOS/OS X configuration profiles for [Private Internet Access][pia] VPNs.
 
+[pia]: https://www.privateinternetaccess.com
+
 
 ## Prerequisites
 
