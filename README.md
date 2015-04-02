@@ -1,72 +1,39 @@
-# PIA Profile Generator
+# Vpn::Config
 
-Generate iOS/OS X configuration profiles for [Private Internet Access][pia] VPNs.
+Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/vpn/config`. To experiment with that code, run `bin/console` for an interactive prompt.
 
+TODO: Delete this and the text above, and describe your gem
 
-## Prerequisites
+## Installation
 
-You'll need the free [Apple Configurator](https://itunes.apple.com/us/app/apple-configurator/id434433123?mt=12) to sign the generated configuration profile (this is required on iOS devices).
+Add this line to your application's Gemfile:
 
-You'll also need a working Ruby environment and the [Bundler](http://bundler.io/) gem.
+```ruby
+gem 'vpn-config'
+```
 
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install vpn-config
 
 ## Usage
 
-1. Clone the repository on to your local machine:
+TODO: Write usage instructions here
 
-  ```sh
-  git clone git@github.com:matiaskorhonen/pia_profile_generator.git
-  ```
+## Development
 
-2. Install the dependencies with bundler
+After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
 
-  ```sh
-  bundle install
-  ```
+To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-3. Configure which VPN servers you want to include. Make a copy of the server list, then edit `pia-servers.yml` to enable individual servers.
+## Contributing
 
-  ```sh
-  cp pia-servers-full.yml pia-servers.yml
-  ```
-
-4. Run the generator script
-
-  ```sh
-  bundle exec ./generate.rb
-  ```
-
-  The script will ask for your L2TP username and password. You can find these on the PIA Client Control Panel.
-
-  ![PPTP/L2TP/SOCKS Username and Password](http://shots.matiaskorhonen.fi/PPTPL2TPSOCKS_Username_and_Password.png)
-
-5. Open the Apple Configurator app, click **+** under the profiles section, choose **Import profile…**, then find the configuration profile you just generated.
-
-  ![Apple Configurator](http://shots.matiaskorhonen.fi/Apple_Configurator_1.png)
-
-6. Select the profile you just imported and click the export button
-
-  ![Export profile](http://shots.matiaskorhonen.fi/Apple_Configurator_Export_Profile.png)
-
-7. Export the profile to a location of your choosing (e.g. Dropbox). Remember to sign it!
-
-  ![Export and sign the profile](http://shots.matiaskorhonen.fi/Apple_Configurator_2015-02-15_at_16.11.56.png)
-
-8. Open the profile on your **iOS device**, for example by:
-
-  * Email the profile to yourself and open the attachment in the default iOS Mail app
-  * Upload the file to Dropbox and open the Dropbox link in Safari
-  * Upload the profile to your own server and open the URL in Safari on your iPhone or iPad
-
-  Follow the iOS prompts to install the profile.
-
-  It is also possible to install the profile with the Apple Configurator app, but I've never tried it.
-
-9. On **OS X** simple double click the profile file to install it.
-
-
-## Copyright & License
-
-Licensed under the MIT License. See the [LICENSE](/LICENSE) file for details.
-
-Copyright (c) 2015 Matias Korhonen
+1. Fork it ( https://github.com/[my-github-username]/vpn-config/fork )
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request

@@ -1,3 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "plist"
+# Specify your gem's dependencies in vpn-config.gemspec
+gemspec
