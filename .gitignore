@@ -9,3 +9,4 @@
 /tmp/
 *.mobileconfig
 *.plist
+*.p12
