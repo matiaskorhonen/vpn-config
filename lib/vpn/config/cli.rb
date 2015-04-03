@@ -17,8 +17,8 @@ module VPN
       method_option :sign, type: :boolean, default: false, aliases: "-S"
       method_option :data_file, type: :string, required: false, banner: "YAML_FILE", aliases: "-d"
       def generate(output_file)
-        if options[:data_file]
-          options[:data_file] = File.expand_path(options[:data_file])
+        datafile = if options[:data_file]
+          File.expand_path(options[:data_file])
         end
 
         generator = VPN::Config::Generator.new(
@@ -29,7 +29,7 @@ module VPN
           certificate_pass: options[:certificate_pass],
           endpoints: options[:endpoints],
           provider: options[:provider],
-          data_file: options[:data_file]
+          data_file: datafile
         )
 
         plist = if options[:sign]
@@ -58,7 +58,11 @@ module VPN
       method_option :data_file, type: :string, required: false, banner: "YAML_FILE", aliases: "-d"
       method_option :verbose, type: :boolean, default: false, aliases: "-v"
       def providers
-        generator = VPN::Config::Generator.new(data_file: options[:data_file])
+        datafile = if options[:data_file]
+          File.expand_path(options[:data_file])
+        end
+
+        generator = VPN::Config::Generator.new(data_file: datafile)
         generator.providers.each do |pr|
           puts "* " + pr["name"]
           if options[:verbose]
@@ -72,7 +76,11 @@ module VPN
       method_option :data_file, type: :string, required: false, banner: "YAML_FILE", aliases: "-d"
       method_option :verbose, type: :boolean, default: false, aliases: "-v"
       def endpoints(provider="Private Internet Access")
-        generator = VPN::Config::Generator.new(data_file: options[:data_file])
+        datafile = if options[:data_file]
+          File.expand_path(options[:data_file])
+        end
+
+        generator = VPN::Config::Generator.new(data_file: datafile)
         provider = generator.providers.find {|pr| pr["name"] =~ Regexp.new(provider, Regexp::IGNORECASE) }
         if provider
           provider["endpoints"].each do |e|
