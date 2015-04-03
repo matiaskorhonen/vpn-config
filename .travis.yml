@@ -1,3 +1,7 @@
 language: ruby
 rvm:
-  - 2.2.1
+- 2.2.1
+env:
+  global:
+    secure: Crjz3GT7vLX3neQ88SgN7T+Ykl/tahF9LVCwqYtNIfWQVI0cpej3+x77TJ24J3AyJmujFIF+/IY5pxcdOpDL3PcOvICx9ZxmRie0CqmgJg+xZNYjIvsJJQjVqkTjiNS2vBAKleavd0VHgcso94QqC7m7j6TklpoGKz3iHDN44Eo=
+script: rake test
