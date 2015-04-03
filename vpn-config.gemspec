@@ -9,12 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Matias Korhonen"]
   spec.email         = ["matias@kiskolabs.com"]
 
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com' to prevent pushes to rubygems.org, or delete to allow pushes to any server."
-  end
-
   spec.summary       = %q{Generate iOS/OS X configuration profiles for VPNs}
-  spec.description   = %q{Generate iOS/OS X configuration profiles for Private Internet Access VPNs}
+  spec.description   = %q{Generate signed and unsigned iOS/OS X configuration profiles for VPNs}
   spec.homepage      = "https://github.com/matiaskorhonen/vpn-config"
   spec.license       = "MIT"
 
