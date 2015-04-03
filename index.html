@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>VPN Config by matiaskorhonen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">VPN Config</h1>
+      <h2 class="project-tagline">Generate iOS/OS X configuration profiles for VPNs</h2>
+      <a href="https://github.com/matiaskorhonen/vpn-config" class="btn">View on GitHub</a>
+      <a href="https://github.com/matiaskorhonen/vpn-config/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/matiaskorhonen/vpn-config/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="vpn-config" class="anchor" href="#vpn-config" aria-hidden="true"><span class="octicon octicon-link"></span></a>VPN Config</h1>
+
+<p><a href="https://travis-ci.org/matiaskorhonen/vpn-config"><img src="https://travis-ci.org/matiaskorhonen/vpn-config.svg?branch=master" alt="Build Status"></a> <a href="http://badge.fury.io/rb/vpn-config"><img src="https://badge.fury.io/rb/vpn-config.svg" alt="Gem Version"></a> <a href="https://codeclimate.com/github/matiaskorhonen/vpn-config"><img src="https://codeclimate.com/github/matiaskorhonen/vpn-config/badges/gpa.svg" alt="Code Climate"></a> <a href="https://codeclimate.com/github/matiaskorhonen/vpn-config"><img src="https://codeclimate.com/github/matiaskorhonen/vpn-config/badges/coverage.svg" alt="Test Coverage"></a></p>
+
+<p>Generate iOS/OS X configuration profiles for VPNs.</p>
+
+<p>Only L2TP <a href="https://www.privateinternetaccess.com/">Private Internet Access</a> VPNs are supported out of the box at the moment, but it's possible to provide your own data file (pull requests are also welcome, if you want to add support for your VPN provider).</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>A working Ruby is required (preferably Ruby 2.2.0 or above).</p>
+
+<p>Install it in the usual manner:</p>
+
+<pre><code>gem install vpn-config
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>To get basic help, run: <code>vpn-config help</code></p>
+
+<p>For information on a specific command: <code>vpn-config help COMMAND</code></p>
+
+<h3>
+<a id="generate-a-signed-configuration-file" class="anchor" href="#generate-a-signed-configuration-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generate a signed configuration file</h3>
+
+<p>To generate a configuration file for the default VPN Provider (Private Internet Access), run:</p>
+
+<div class="highlight highlight-sh"><pre>vpn-config generate <span class="pl-c1">test</span>.mobileconfig --username=foo --password=bar</pre></div>
+
+<p>To sign the configuration file, also give the <code>--sign</code> argument:</p>
+
+<div class="highlight highlight-sh"><pre>vpn-config generate <span class="pl-c1">test</span>.mobileconfig --username=foo --password=bar --sign</pre></div>
+
+<p>To select specific endpoints, use the <code>--endpoints</code> option:</p>
+
+<div class="highlight highlight-sh"><pre>vpn-config generate <span class="pl-c1">test</span>.mobileconfig --username=foo --password=bar --sign  \
+--endpoints <span class="pl-s"><span class="pl-pds">"</span>US East<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>Canada<span class="pl-pds">"</span></span> <span class="pl-s"><span class="pl-pds">"</span>Hong Kong<span class="pl-pds">"</span></span></pre></div>
+
+<p>To sign with your own certificate, simply provide the path and passphrase (the certificate <strong>must</strong> be a PKCS12 file):</p>
+
+<div class="highlight highlight-sh"><pre>vpn-config generate <span class="pl-c1">test</span>.mobileconfig --username=foo --password=bar --sign \
+--certificate-path my.p12 --certificate-pass SuperSecret</pre></div>
+
+<h3>
+<a id="supply-your-own-data-file" class="anchor" href="#supply-your-own-data-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Supply your own data file</h3>
+
+<p>If you wish, you can use your own VPN list instead of the built-in list:</p>
+
+<div class="highlight highlight-sh"><pre>vpn-config generate <span class="pl-c1">test</span>.mobileconfig --username=foo --password=bar --sign \
+--data-file mydata.yml --provider <span class="pl-s"><span class="pl-pds">"</span>My Provider<span class="pl-pds">"</span></span></pre></div>
+
+<p>Use the <a href="https://github.com/matiaskorhonen/vpn-config/blob/master/data/providers.yml">data/providers.yml</a> file as an example of how to format your list.</p>
+
+<h2>
+<a id="private-internet-access-l2tp-credentials" class="anchor" href="#private-internet-access-l2tp-credentials" aria-hidden="true"><span class="octicon octicon-link"></span></a>Private Internet Access L2TP credentials</h2>
+
+<p>Don't try to use your PIA account credentials to log in to PIA VPNs. Instead you will find a separate set of credentials on the <a href="https://www.privateinternetaccess.com/pages/client-control-panel">Client Control Panel</a>:</p>
+
+<p><img src="http://shots.matiaskorhonen.fi/PPTPL2TPSOCKS_Username_and_Password.png" alt="PPTP/L2TP/SOCKS Username and Password"></p>
+
+<p>Generate the credentials if you haven't already…</p>
+
+<h2>
+<a id="development" class="anchor" href="#development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Development</h2>
+
+<p>After checking out the repo, run <code>bin/setup</code> to install dependencies. Then, run <code>bin/console</code> for an interactive prompt that will allow you to experiment.</p>
+
+<p>To install this gem onto your local machine, run <code>bundle exec rake install</code>. To release a new version, update the version number in <code>version.rb</code>, and then run <code>bundle exec rake release</code> to create a git tag for the version, push git commits and tags, and push the <code>.gem</code> file to <a href="https://rubygems.org">rubygems.org</a>.</p>
+
+<h3>
+<a id="unit-tests" class="anchor" href="#unit-tests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unit tests</h3>
+
+<p>Run the Minitest/Minispec tests with: <code>rake test</code></p>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<ol>
+<li>Fork it ( <a href="https://github.com/matiaskorhonen/vpn-config/fork">https://github.com/matiaskorhonen/vpn-config/fork</a> )</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create a new Pull Request</li>
+</ol>
+
+<h2>
+<a id="copyright--license" class="anchor" href="#copyright--license" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright &amp; License</h2>
+
+<p>Licensed under the MIT License. See the <a href="/LICENSE.txt">LICENSE.txt</a> file for details.</p>
+
+<p>Copyright (c) 2015 Matias Korhonen</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/matiaskorhonen/vpn-config">VPN Config</a> is maintained by <a href="https://github.com/matiaskorhonen">matiaskorhonen</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
