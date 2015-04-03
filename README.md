@@ -42,6 +42,25 @@ vpn-config generate --username=foo --password=bar \
 --certificate-path my.p12 --certificate-pass SuperSecret test.mobileconfig
 ```
 
+### Supply your own data file
+
+If you wish, you can use your own VPN list instead of the built-in list:
+
+```sh
+vpn-config generate --username=foo --password=bar \
+--data-file mydata.yml --provider "My Provider" test.mobileconfig
+```
+
+Use the [data/providers.yml](https://github.com/matiaskorhonen/vpn-config/blob/master/data/providers.yml) file as an example of how to format your list.
+
+## Private Internet Access L2TP credentials
+
+Don't try to use your PIA account credentials to log in to PIA VPNs. Instead you will find a separate set of credentials on the [Client Control Panel](https://www.privateinternetaccess.com/pages/client-control-panel):
+
+![PPTP/L2TP/SOCKS Username and Password](http://shots.matiaskorhonen.fi/PPTPL2TPSOCKS_Username_and_Password.png)
+
+Generate the credentials if you haven't already…
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
