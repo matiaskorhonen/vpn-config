@@ -25,27 +25,27 @@ For information on a specific command: `vpn-config help COMMAND`
 To generate a configuration file for the default VPN Provider (Private Internet Access), run:
 
 ```sh
-vpn-config generate --username=foo --password=bar test.mobileconfig
+vpn-config generate test.mobileconfig --username=foo --password=bar
 ```
 
 To sign the configuration file, also give the `--sign` argument:
 
 ```sh
-vpn-config generate --username=foo --password=bar --sign test.mobileconfig
+vpn-config generate test.mobileconfig --username=foo --password=bar --sign
 ```
 
 To select specific endpoints, use the `--endpoints` option:
 
 ```sh
-vpn-config generate --username=foo --password=bar --sign  \
---endpoints "US East" "Canada" "Hong Kong" test.mobileconfig
+vpn-config generate test.mobileconfig --username=foo --password=bar --sign  \
+--endpoints "US East" "Canada" "Hong Kong"
 ```
 
 To sign with your own certificate, simply provide the path and passphrase (the certificate **must** be a PKCS12 file):
 
 ```sh
-vpn-config generate --username=foo --password=bar --sign \
---certificate-path my.p12 --certificate-pass SuperSecret test.mobileconfig
+vpn-config generate test.mobileconfig --username=foo --password=bar --sign \
+--certificate-path my.p12 --certificate-pass SuperSecret
 ```
 
 ### Supply your own data file
@@ -53,8 +53,8 @@ vpn-config generate --username=foo --password=bar --sign \
 If you wish, you can use your own VPN list instead of the built-in list:
 
 ```sh
-vpn-config generate --username=foo --password=bar --sign \
---data-file mydata.yml --provider "My Provider" test.mobileconfig
+vpn-config generate test.mobileconfig --username=foo --password=bar --sign \
+--data-file mydata.yml --provider "My Provider"
 ```
 
 Use the [data/providers.yml](https://github.com/matiaskorhonen/vpn-config/blob/master/data/providers.yml) file as an example of how to format your list.
