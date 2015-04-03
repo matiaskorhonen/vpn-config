@@ -7,16 +7,24 @@ module VPN
     PROVIDERS_PATH = File.expand_path("../../../data/providers.yml", __FILE__)
 
     class Generator
-      attr_accessor :auth_name, :auth_pass, :identifier, :certificate_path, :certificate_pass
+      attr_accessor :auth_name, :auth_pass, :identifier, :certificate_path,
+                    :certificate_pass, :provider, :endpoints, :data_file
 
-      def initialize(auth_name: nil, auth_pass: nil, identifier: "com.example.vpn", certificate_path: nil, certificate_pass: nil)
+      def initialize(auth_name: nil, auth_pass: nil, identifier: nil,
+          certificate_path: nil, certificate_pass: nil, provider: nil,
+          endpoints: nil, data_file: nil)
         @auth_name = auth_name
         @auth_pass = auth_pass
-        @identifier = identifier
+        @identifier = identifier || "com.example.vpn"
+        @certificate_path = certificate_path
+        @certificate_pass = certificate_pass
+        @provider = provider
+        @endpoints = endpoints
+        @data_file = data_file || VPN::Config::PROVIDERS_PATH
       end
 
       def providers
-        @providers ||= YAML.load_file(VPN::Config::PROVIDERS_PATH)["providers"]
+        @providers ||= YAML.load_file(data_file)["providers"]
       end
 
       def selected_provider
@@ -28,7 +36,11 @@ module VPN
       end
 
       def enabled_vpns
-        vpns
+        if endpoints && endpoints.any?
+          vpns.select {|e| endpoints.include? e["name"] }
+        else
+          vpns
+        end
       end
 
       def generate_plist

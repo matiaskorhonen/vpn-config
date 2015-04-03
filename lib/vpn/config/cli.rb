@@ -7,7 +7,6 @@ module VPN
       include Thor::Actions
 
       desc "generate OUTPUT_FILE", "Generate a VPN .mobileconfig file for OS X or iOS. \n\nSigning uses a self-signed snake-oil certificate by default."
-
       method_option :username, type: :string, required: true, banner: "VPN_USERNAME", aliases: "-u"
       method_option :password, type: :string, required: true, banner: "VPN_PASSWORD", aliases: "-p"
       method_option :endpoints, type: :array, default: [], banner: "VPN_ENDPOINTS", aliases: "-e"
@@ -16,13 +15,21 @@ module VPN
       method_option :certificate_path, type: :string, required: false, banner: "PKCS12_CERTIFICATE", aliases: "-C"
       method_option :certificate_pass, type: :string, required: false, banner: "PASSPHRASE", aliases: "-P"
       method_option :sign, type: :boolean, default: false, aliases: "-S"
+      method_option :data_file, type: :string, required: false, banner: "YAML_FILE", aliases: "-d"
       def generate(output_file)
+        if options[:data_file]
+          options[:data_file] = File.expand_path(options[:data_file])
+        end
+
         generator = VPN::Config::Generator.new(
           auth_name: options[:username],
           auth_pass: options[:password],
           identifier: options[:identifier],
           certificate_path: options[:certificate_path],
-          certificate_pass: options[:certificate_pass]
+          certificate_pass: options[:certificate_pass],
+          endpoints: options[:endpoints],
+          provider: options[:provider],
+          data_file: options[:data_file]
         )
 
         plist = if options[:sign]
@@ -48,9 +55,10 @@ module VPN
       end
 
       desc "providers", "List known VPN providers"
+      method_option :data_file, type: :string, required: false, banner: "YAML_FILE", aliases: "-d"
       method_option :verbose, type: :boolean, default: false, aliases: "-v"
       def providers
-        generator = VPN::Config::Generator.new
+        generator = VPN::Config::Generator.new(data_file: options[:data_file])
         generator.providers.each do |pr|
           puts "* " + pr["name"]
           if options[:verbose]
@@ -61,9 +69,10 @@ module VPN
       end
 
       desc "endpoints PROVIDER", "List known VPN endpoints for a given provider"
+      method_option :data_file, type: :string, required: false, banner: "YAML_FILE", aliases: "-d"
       method_option :verbose, type: :boolean, default: false, aliases: "-v"
-      def endpoints(provider)
-        generator = VPN::Config::Generator.new
+      def endpoints(provider="Private Internet Access")
+        generator = VPN::Config::Generator.new(data_file: options[:data_file])
         provider = generator.providers.find {|pr| pr["name"] =~ Regexp.new(provider, Regexp::IGNORECASE) }
         if provider
           provider["endpoints"].each do |e|
