@@ -20,25 +20,29 @@ For information on a specific command: `vpn-config help COMMAND`
 
 ### Generate a signed configuration file
 
-By default VPN Config will generate `.mobileconfig` files signed with a built-in self-signed “snake oil” certificate.
-
 To generate a configuration file for the default VPN Provider (Private Internet Access), run:
 
 ```sh
 vpn-config generate --username=foo --password=bar test.mobileconfig
 ```
 
+To sign the configuration file, also give the `--sign` argument:
+
+```sh
+vpn-config generate --username=foo --password=bar --sign test.mobileconfig
+```
+
 To select specific endpoints, use the `--endpoints` option:
 
 ```sh
-vpn-config generate --username=foo --password=bar \
+vpn-config generate --username=foo --password=bar --sign  \
 --endpoints "US East" "Canada" "Hong Kong" test.mobileconfig
 ```
 
 To sign with your own certificate, simply provide the path and passphrase (the certificate **must** be a PKCS12 file):
 
 ```sh
-vpn-config generate --username=foo --password=bar \
+vpn-config generate --username=foo --password=bar --sign \
 --certificate-path my.p12 --certificate-pass SuperSecret test.mobileconfig
 ```
 
@@ -47,7 +51,7 @@ vpn-config generate --username=foo --password=bar \
 If you wish, you can use your own VPN list instead of the built-in list:
 
 ```sh
-vpn-config generate --username=foo --password=bar \
+vpn-config generate --username=foo --password=bar --sign \
 --data-file mydata.yml --provider "My Provider" test.mobileconfig
 ```
 
