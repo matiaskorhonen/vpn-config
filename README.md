@@ -1,5 +1,7 @@
 # VPN Config
 
+[![Build Status](https://travis-ci.org/matiaskorhonen/vpn-config.svg?branch=master)](https://travis-ci.org/matiaskorhonen/vpn-config)
+
 Generate iOS/OS X configuration profiles for VPNs.
 
 Only L2TP [Private Internet Access](https://www.privateinternetaccess.com/) VPNs are supported out of the box at the moment, but it's possible to provide your own data file (pull requests are also welcome, if you want to add support for your VPN provider).
