@@ -21,11 +21,15 @@ module VPN
           File.expand_path(options[:data_file])
         end
 
+        certificate_path = if options[:certificate_path]
+          File.expand_path(options[:certificate_path])
+        end
+
         generator = VPN::Config::Generator.new(
           auth_name: options[:username],
           auth_pass: options[:password],
           identifier: options[:identifier],
-          certificate_path: options[:certificate_path],
+          certificate_path: certificate_path,
           certificate_pass: options[:certificate_pass],
           endpoints: options[:endpoints],
           provider: options[:provider],
