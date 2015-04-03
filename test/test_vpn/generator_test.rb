@@ -63,7 +63,7 @@ describe ::VPN::Config::Generator do
     it "generates a signed plist" do
       string = generator.generate_signed_plist
       p7 = OpenSSL::PKCS7.new(string)
-      p7.signers.first.name.must_equal "/C=ZZ/ST=Sto Plains/L=Ankh-Morpork/O=The Patrician's Palace/OU=The Black Clerks/CN=The Patrician's Palace"
+      p7.signers.first.name.to_s.must_equal "/C=ZZ/ST=Sto Plains/L=Ankh-Morpork/O=The Patrician's Palace/OU=The Black Clerks/CN=The Patrician's Palace"
     end
   end
 
