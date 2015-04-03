@@ -17,23 +17,15 @@ module VPN
       method_option :sign, type: :boolean, default: false, aliases: "-S"
       method_option :data_file, type: :string, required: false, banner: "YAML_FILE", aliases: "-d"
       def generate(output_file)
-        datafile = if options[:data_file]
-          File.expand_path(options[:data_file])
-        end
-
-        certificate_path = if options[:certificate_path]
-          File.expand_path(options[:certificate_path])
-        end
-
         generator = VPN::Config::Generator.new(
           auth_name: options[:username],
           auth_pass: options[:password],
           identifier: options[:identifier],
-          certificate_path: certificate_path,
+          certificate_path: expand_path(options[:certificate_path]),
           certificate_pass: options[:certificate_pass],
           endpoints: options[:endpoints],
           provider: options[:provider],
-          data_file: datafile
+          data_file: expand_path(options[:data_file])
         )
 
         plist = if options[:sign]
@@ -62,11 +54,7 @@ module VPN
       method_option :data_file, type: :string, required: false, banner: "YAML_FILE", aliases: "-d"
       method_option :verbose, type: :boolean, default: false, aliases: "-v"
       def providers
-        datafile = if options[:data_file]
-          File.expand_path(options[:data_file])
-        end
-
-        generator = VPN::Config::Generator.new(data_file: datafile)
+        generator = VPN::Config::Generator.new(data_file: expand_path(options[:data_file]))
         generator.providers.each do |pr|
           puts "* " + pr["name"]
           if options[:verbose]
@@ -80,11 +68,7 @@ module VPN
       method_option :data_file, type: :string, required: false, banner: "YAML_FILE", aliases: "-d"
       method_option :verbose, type: :boolean, default: false, aliases: "-v"
       def endpoints(provider="Private Internet Access")
-        datafile = if options[:data_file]
-          File.expand_path(options[:data_file])
-        end
-
-        generator = VPN::Config::Generator.new(data_file: datafile)
+        generator = VPN::Config::Generator.new(data_file: expand_path(options[:data_file]))
         provider = generator.providers.find {|pr| pr["name"] =~ Regexp.new(provider, Regexp::IGNORECASE) }
         if provider
           provider["endpoints"].each do |e|
@@ -97,6 +81,12 @@ module VPN
           end
         else
           abort "No provider found"
+        end
+      end
+
+      no_commands do
+        private def expand_path(path)
+          path ? File.expand_path(path) : nil
         end
       end
     end
