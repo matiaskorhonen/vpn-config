@@ -78,7 +78,7 @@ module VPN
         @p12 ||= begin
           if certificate_path
             path = File.expand_path(certificate_path)
-            unless File.exists? path
+            unless File.exist? path
               raise ArgumentError, "File not found: #{certificate_path}"
             end
             cert = File.read(path)
