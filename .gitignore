@@ -10,3 +10,4 @@
 *.mobileconfig
 *.plist
 *.p12
+*.gem
